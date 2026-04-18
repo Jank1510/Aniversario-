@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestro Aniversario</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+      background-size: 400% 400%;
+      animation: fondoAnimado 12s ease infinite;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    @keyframes fondoAnimado {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .contenedor {
+      position: relative;
+      width: 100%;
+      max-width: 920px;
+      z-index: 2;
+      margin: 0 auto;
+    }
+
+    .carta {
+      position: relative;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+      padding: 38px 30px;
+      color: white;
+      text-align: center;
+      animation: aparecer 1.5s ease;
+      margin-bottom: 30px;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .titulo {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      animation: latido 2.2s infinite;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .subtitulo {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      opacity: 0.95;
+    }
+
+    .mensaje {
+      text-align: left;
+      line-height: 1.85;
+      font-size: 1.08rem;
+      background: rgba(255,255,255,0.10);
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+
+    .mensaje p {
+      margin-bottom: 16px;
+    }
+
+    .firma {
+      margin-top: 24px;
+      text-align: right;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .corazon-central {
+      font-size: 2rem;
+      display: inline-block;
+      margin-bottom: 16px;
+      animation: flotar 3s ease-in-out infinite;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .contador {
+      margin: 22px auto 0;
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .boton-musica {
+      margin-top: 24px;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: rgba(255,255,255,0.9);
+      color: #c04a8b;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .boton-musica:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.16);
+    }
+
+    .separador {
+      width: 90px;
+      height: 4px;
+      border-radius: 999px;
+      margin: 26px auto;
+      background: rgba(255,255,255,0.75);
+      box-shadow: 0 0 18px rgba(255,255,255,0.35);
+    }
+
+    .galeria-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .galeria-sub {
+      opacity: 0.92;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .foto-card {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+      transform: translateY(25px);
+      opacity: 0;
+      animation: subirFoto 0.9s ease forwards;
+    }
+
+    .foto-card:nth-child(2) { animation-delay: 0.08s; }
+    .foto-card:nth-child(3) { animation-delay: 0.16s; }
+    .foto-card:nth-child(4) { animation-delay: 0.24s; }
+    .foto-card:nth-child(5) { animation-delay: 0.32s; }
+    .foto-card:nth-child(6) { animation-delay: 0.40s; }
+    .foto-card:nth-child(7) { animation-delay: 0.48s; }
+    .foto-card:nth-child(8) { animation-delay: 0.56s; }
+    .foto-card:nth-child(9) { animation-delay: 0.64s; }
+    .foto-card:nth-child(10){ animation-delay: 0.72s; }
+
+    @keyframes subirFoto {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .foto-card img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .foto-card:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .foto-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.30), transparent 45%);
+      pointer-events: none;
+    }
+
+    .mini-frase {
+      margin-top: 26px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    .corazon {
+      position: fixed;
+      color: rgba(255,255,255,0.8);
+      font-size: 18px;
+      animation: subir linear infinite;
+      bottom: -30px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    .brillo {
+      position: fixed;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+      border-radius: 50%;
+      filter: blur(8px);
+      z-index: 1;
+      animation: moverBrillo 10s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .brillo.uno {
+      top: 6%;
+      left: 10%;
+    }
+
+    .brillo.dos {
+      bottom: 10%;
+      right: 8%;
+      animation-duration: 12s;
+    }
+
+    @keyframes moverBrillo {
+      from { transform: translate(0, 0) scale(1); }
+      to { transform: translate(40px, -25px) scale(1.2); }
+    }
+
+    .nota {
+      margin-top: 18px;
+      font-size: 0.92rem;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 800px) {
+      .galeria {
+        grid-template-columns: 1fr;
+      }
+
+      .foto-card img {
+        height: 380px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 24px 14px;
+      }
+
+      .carta {
+        padding: 28px 20px;
+      }
+
+      .mensaje {
+        font-size: 1rem;
+        line-height: 1.75;
+      }
+
+      .firma {
+        text-align: center;
+      }
+
+      .foto-card img {
+        height: 330px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="brillo uno"></div>
+  <div class="brillo dos"></div>
+
+  <div class="contenedor">
+    <div class="carta">
+      <div class="corazon-central">❤️</div>
+      <h1 class="titulo">Feliz aniversario, mi amor</h1>
+      <div class="subtitulo">Hoy celebramos 3 años y 1 mes juntos ✨</div>
+
+      <div class="mensaje">
+        <p>Mi amor, hoy quiero recordarte lo especial que eres para mí. Han pasado <strong>3 años y 1 mes</strong>, y aun así cada momento a tu lado sigue sintiéndose bonito, único y valioso.</p>
+        <p>Gracias por tu compañía, por tu cariño, por tus palabras, por tu paciencia y por cada pequeño detalle que ha hecho parte de nuestra historia. Hemos vivido muchas cosas, y cada una de ellas ha ido construyendo esto tan lindo que tenemos.</p>
+        <p>Quiero que sepas que te amo de una manera sincera y profunda. Me haces sentir feliz, acompañado y con ganas de seguir construyendo recuerdos contigo. Eres una persona muy importante en mi vida, y tenerte conmigo es de las cosas más bonitas que me han pasado.</p>
+        <p>Hoy no solo celebramos el tiempo, celebramos todo lo que hemos superado, lo que hemos aprendido y todo lo que todavía nos falta por vivir juntos. Deseo que sigamos sumando meses, años, risas, abrazos y muchos momentos más.</p>
+        <p>Gracias por existir, por estar en mi vida y por ser tú. Te escogería una y mil veces más.</p>
+      </div>
+
+      <div class="firma">Con todo mi amor, para ti 💖</div>
+      <div class="contador">3 años • 1 mes • una historia muy bonita</div>
+      <button class="boton-musica" onclick="mostrarMensaje()">Toca aquí 💌</button>
+
+      <div class="separador"></div>
+
+      <div class="galeria-titulo">Nuestros momentos bonitos 📸</div>
+      <div class="galeria-sub">Solo agrega tus fotos en la misma carpeta con estos nombres y esta página quedará hermosa.</div>
+
+      <div class="galeria">
+        <div class="foto-card"><img src="IMG-20230330-WA0209.jpg" alt="Foto 1 de nosotros"></div>
+        <div class="foto-card"><img src="IMG-20230805-WA0041.jpg" alt="Foto 2 de nosotros"></div>
+        <div class="foto-card"><img src="IMG-20230827-WA0038.jpg" alt="Foto 3 de nosotros"></div>
+        <div class="foto-card"><img src="IMG_20230524_200127775.jpg" alt="Foto 4 de nosotros"></div>
+        <div class="foto-card"><img src="IMG_20231106_192251756.jpg" alt="Foto 5 de nosotros"></div>
+        <div class="foto-card"><img src="IMG_20240413_204612.jpg" alt="Foto 6 de nosotros"></div>
+        <div class="foto-card"><img src="IMG_20240505_150625.jpg" alt="Foto 7 de nosotros"></div>
+        <div class="foto-card"><img src="IMG_20240825_201852~3.jpg" alt="Foto 8 de nosotros"></div>
+        <div class="foto-card"><img src="Snapchat-1175167982.jpg" alt="Foto 9 de nosotros"></div>
+        <div class="foto-card"><img src="Snapchat-544031055.jpg" alt="Foto 10 de nosotros"></div>
+      </div>
+
+      <div class="mini-frase">
+        Cada foto guarda un pedacito de lo nuestro, y aunque el tiempo siga pasando, mi corazón sigue eligiéndote con la misma emoción, con el mismo cariño y con aún más amor que antes.
+      </div>
+
+      <div class="nota">Pon este archivo HTML en la misma carpeta que tus imágenes renombradas como: foto1.jpg, foto2.jpg, foto3.jpg... hasta foto10.jpg.</div>
+    </div>
+  </div>
+
+  <script>
+    function crearCorazon() {
+      const corazon = document.createElement('div');
+      corazon.classList.add('corazon');
+      corazon.innerHTML = '❤';
+      corazon.style.left = Math.random() * 100 + 'vw';
+      corazon.style.fontSize = (14 + Math.random() * 22) + 'px';
+      corazon.style.animationDuration = (4 + Math.random() * 5) + 's';
+      corazon.style.opacity = Math.random();
+      document.body.appendChild(corazon);
+
+      setTimeout(() => {
+        corazon.remove();
+      }, 9000);
+    }
+
+    setInterval(crearCorazon, 350);
+
+    function mostrarMensaje() {
+      alert('Te amo muchísimo. Gracias por estos 3 años y 1 mes conmigo 💖');
+    }
+  </script>
+</body>
+</html>
